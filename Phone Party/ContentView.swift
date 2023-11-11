@@ -7,6 +7,22 @@ struct CircleData {
 }
 
 struct ContentView: View {
+    var body: some View {
+        TabView {
+            CirclesView()
+                .tabItem {
+                    Label("Circles", systemImage: "circle")
+                }
+            
+            DebugView()
+                .tabItem {
+                    Label("Debug", systemImage: "ant")
+                }
+        }
+    }
+}
+
+struct CirclesView: View {
     @State private var circles: [CircleData] = []
 
     var body: some View {
@@ -69,6 +85,12 @@ extension Color {
         let saturation: Double = 0.6 // Pastel-like saturation
         let brightness: Double = 0.9 // Bright enough to appear pastel
         return Color(hue: hue, saturation: saturation, brightness: brightness)
+    }
+}
+
+struct DebugView: View {
+    var body: some View {
+        Text("Debug Screen")
     }
 }
 
