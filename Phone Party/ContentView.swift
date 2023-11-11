@@ -89,10 +89,26 @@ extension Color {
 }
 
 struct DebugView: View {
+    @ObservedObject var webSocketManager = WebSocketManager()
+
     var body: some View {
-        Text("Debug Screen")
+        VStack {
+            Button("Send Ping") {
+                webSocketManager.send(message: "ping")
+            }
+
+            Text("Last received message: \(webSocketManager.lastReceivedMessage)")
+            Text("Received at: \(webSocketManager.lastReceivedTime)")
+        }
+        .onAppear {
+            webSocketManager.connect()
+        }
+        .onDisappear {
+            webSocketManager.disconnect()
+        }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

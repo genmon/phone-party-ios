@@ -14,6 +14,7 @@
 		C97A7B5B2AFBC85300529E57 /* Phone_PartyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A7B5A2AFBC85300529E57 /* Phone_PartyTests.swift */; };
 		C97A7B652AFBC85300529E57 /* Phone_PartyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A7B642AFBC85300529E57 /* Phone_PartyUITests.swift */; };
 		C97A7B672AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A7B662AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift */; };
+		C9D8C1F22AFF990C00EB8A4B /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		C97A7B602AFBC85300529E57 /* Phone PartyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone PartyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97A7B642AFBC85300529E57 /* Phone_PartyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_PartyUITests.swift; sourceTree = "<group>"; };
 		C97A7B662AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_PartyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		C97A7B482AFBC85000529E57 /* Phone Party */ = {
 			isa = PBXGroup;
 			children = (
+				C9D8C1F02AFF98EF00EB8A4B /* Services */,
 				C97A7B492AFBC85000529E57 /* Phone_PartyApp.swift */,
 				C97A7B4B2AFBC85000529E57 /* ContentView.swift */,
 				C97A7B4D2AFBC85200529E57 /* Assets.xcassets */,
@@ -125,6 +128,14 @@
 				C97A7B662AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift */,
 			);
 			path = "Phone PartyUITests";
+			sourceTree = "<group>";
+		};
+		C9D8C1F02AFF98EF00EB8A4B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +270,7 @@
 			files = (
 				C97A7B4C2AFBC85000529E57 /* ContentView.swift in Sources */,
 				C97A7B4A2AFBC85000529E57 /* Phone_PartyApp.swift in Sources */,
+				C9D8C1F22AFF990C00EB8A4B /* WebSocketManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
