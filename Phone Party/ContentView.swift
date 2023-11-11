@@ -44,11 +44,13 @@ struct CirclesView: View {
                         .onEnded { value in
                             let xCoordinate = value.location.x / UIScreen.main.bounds.width
                             let yCoordinate = value.location.y / UIScreen.main.bounds.height
-
+                            let color = Color.randomPastel()
+                            
                             let message: [String: Any] = [
                                 "type": "circle",
                                 "px": xCoordinate,
-                                "py": yCoordinate
+                                "py": yCoordinate,
+                                "color": ColorUtils.colorToString(color)
                             ]
 
                             if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted),
@@ -56,7 +58,7 @@ struct CirclesView: View {
                                 webSocketManager.send(message: jsonString)
                             }
 
-                            addCircle(at: value.location)
+                            addCircle(at: value.location, color: color)
                         }
                 )
 
@@ -83,16 +85,17 @@ struct CirclesView: View {
                 let screenHeight = UIScreen.main.bounds.height
                 let xPosition = data.x * screenWidth
                 let yPosition = data.y * screenHeight
+                let color = data.color
                 
                 print("Adding circle at normalized coordinates (\(data.x), \(data.y)), which is (\(xPosition), \(yPosition)) on screen")
 
-                addCircle(at: CGPoint(x: xPosition, y: yPosition))
+                addCircle(at: CGPoint(x: xPosition, y: yPosition), color: color)
             }
         }
     }
 
-    private func addCircle(at position: CGPoint) {
-        let newCircle = CircleData(color: Color.randomPastel(), position: position)
+    private func addCircle(at position: CGPoint, color: Color) {
+        let newCircle = CircleData(color: color, position: position)
         circles.append(newCircle)
         removeCircleDelayed(circleID: newCircle.id)
     }

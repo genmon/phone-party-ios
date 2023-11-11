@@ -15,6 +15,7 @@
 		C97A7B652AFBC85300529E57 /* Phone_PartyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A7B642AFBC85300529E57 /* Phone_PartyUITests.swift */; };
 		C97A7B672AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A7B662AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift */; };
 		C9D8C1F22AFF990C00EB8A4B /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */; };
+		C9D8C1F52AFFB26500EB8A4B /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D8C1F42AFFB26500EB8A4B /* ColorUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		C97A7B642AFBC85300529E57 /* Phone_PartyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_PartyUITests.swift; sourceTree = "<group>"; };
 		C97A7B662AFBC85300529E57 /* Phone_PartyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_PartyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		C9D8C1F42AFFB26500EB8A4B /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		C97A7B482AFBC85000529E57 /* Phone Party */ = {
 			isa = PBXGroup;
 			children = (
+				C9D8C1F32AFFB25300EB8A4B /* Utils */,
 				C9D8C1F02AFF98EF00EB8A4B /* Services */,
 				C97A7B492AFBC85000529E57 /* Phone_PartyApp.swift */,
 				C97A7B4B2AFBC85000529E57 /* ContentView.swift */,
@@ -136,6 +139,14 @@
 				C9D8C1F12AFF990C00EB8A4B /* WebSocketManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C9D8C1F32AFFB25300EB8A4B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C9D8C1F42AFFB26500EB8A4B /* ColorUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +282,7 @@
 				C97A7B4C2AFBC85000529E57 /* ContentView.swift in Sources */,
 				C97A7B4A2AFBC85000529E57 /* Phone_PartyApp.swift in Sources */,
 				C9D8C1F22AFF990C00EB8A4B /* WebSocketManager.swift in Sources */,
+				C9D8C1F52AFFB26500EB8A4B /* ColorUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

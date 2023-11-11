@@ -1,8 +1,10 @@
 import Foundation
+import SwiftUI
 
 struct ReceivedCircleData: Equatable {
     var x: CGFloat
     var y: CGFloat
+    var color: Color
 }
 
 class WebSocketManager: NSObject, ObservableObject {
@@ -73,14 +75,16 @@ class WebSocketManager: NSObject, ObservableObject {
         guard let type = json["type"] as? String,
               type == "circle",
               let px = json["px"] as? CGFloat,
-              let py = json["py"] as? CGFloat else {
+              let py = json["py"] as? CGFloat,
+              let colorString = json["color"] as? String,
+              let color = ColorUtils.stringToColor(colorString) else {
             print("JSON does not contain valid 'circle' data")
             return
         }
 
-        print("Parsed circle data: (px: \(px), py: \(py))")
+        print("Parsed circle data: (px: \(px), py: \(py), color: \(colorString))")
 
-        self.receivedCircleData = ReceivedCircleData(x: px, y: py)
+        self.receivedCircleData = ReceivedCircleData(x: px, y: py, color: color)
     }
 }
 
