@@ -1,0 +1,4 @@
+{
+  "main": "partykit/server.ts",
+  "name": "phone-party"
+}
