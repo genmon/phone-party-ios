@@ -7,22 +7,31 @@ struct CircleData {
 }
 
 struct ContentView: View {
+    @StateObject var webSocketManager = WebSocketManager()
+
     var body: some View {
         TabView {
-            CirclesView()
+            CirclesView(webSocketManager: webSocketManager)
                 .tabItem {
                     Label("Circles", systemImage: "circle")
                 }
             
-            DebugView()
+            DebugView(webSocketManager: webSocketManager)
                 .tabItem {
                     Label("Debug", systemImage: "ant")
                 }
+        }
+        .onAppear {
+            webSocketManager.connect()
+        }
+        .onDisappear {
+            webSocketManager.disconnect()
         }
     }
 }
 
 struct CirclesView: View {
+    var webSocketManager: WebSocketManager
     @State private var circles: [CircleData] = []
 
     var body: some View {
@@ -33,6 +42,21 @@ struct CirclesView: View {
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onEnded { value in
+                            let xCoordinate = value.location.x / UIScreen.main.bounds.width
+                            let yCoordinate = value.location.y / UIScreen.main.bounds.height
+
+                            let message: [String: Any] = [
+                                "type": "circle",
+                                "px": xCoordinate,
+                                "py": yCoordinate
+                            ]
+
+                            if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted),
+                               let jsonString = String(data: jsonData, encoding: .utf8) {
+                                webSocketManager.send(message: jsonString)
+                            }
+
+                            
                             let newCircle = CircleData(color: Color.randomPastel(), position: value.location)
                             circles.append(newCircle)
                             removeCircleDelayed(circleID: newCircle.id)
@@ -89,7 +113,7 @@ extension Color {
 }
 
 struct DebugView: View {
-    @ObservedObject var webSocketManager = WebSocketManager()
+    @ObservedObject var webSocketManager: WebSocketManager
 
     var body: some View {
         VStack {
@@ -99,12 +123,6 @@ struct DebugView: View {
 
             Text("Last received message: \(webSocketManager.lastReceivedMessage)")
             Text("Received at: \(webSocketManager.lastReceivedTime)")
-        }
-        .onAppear {
-            webSocketManager.connect()
-        }
-        .onDisappear {
-            webSocketManager.disconnect()
         }
     }
 }
