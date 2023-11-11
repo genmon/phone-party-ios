@@ -1,9 +1,15 @@
 import Foundation
 
+struct ReceivedCircleData: Equatable {
+    var x: CGFloat
+    var y: CGFloat
+}
+
 class WebSocketManager: NSObject, ObservableObject {
     private var webSocketTask: URLSessionWebSocketTask?
     @Published var lastReceivedMessage: String = ""
     @Published var lastReceivedTime: String = ""
+    @Published var receivedCircleData: ReceivedCircleData?
 
     func connect() {
         let url = URL(string: "wss://phone-party.genmon.partykit.dev/party/default")!
@@ -36,6 +42,7 @@ class WebSocketManager: NSObject, ObservableObject {
                     DispatchQueue.main.async {
                         self?.lastReceivedMessage = text
                         self?.lastReceivedTime = self?.getCurrentTimeString() ?? ""
+                        self?.parseReceivedMessage(text)
                     }
                 default:
                     break
@@ -50,6 +57,30 @@ class WebSocketManager: NSObject, ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSS"
         return formatter.string(from: Date())
+    }
+    
+    private func parseReceivedMessage(_ message: String) {
+        print("Received message: \(message)")
+
+        guard let data = message.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+            print("Failed to convert message to JSON")
+            return
+        }
+
+        print("Converted JSON: \(json)")
+
+        guard let type = json["type"] as? String,
+              type == "circle",
+              let px = json["px"] as? CGFloat,
+              let py = json["py"] as? CGFloat else {
+            print("JSON does not contain valid 'circle' data")
+            return
+        }
+
+        print("Parsed circle data: (px: \(px), py: \(py))")
+
+        self.receivedCircleData = ReceivedCircleData(x: px, y: py)
     }
 }
 

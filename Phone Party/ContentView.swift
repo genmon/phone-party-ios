@@ -31,7 +31,7 @@ struct ContentView: View {
 }
 
 struct CirclesView: View {
-    var webSocketManager: WebSocketManager
+    @ObservedObject var webSocketManager: WebSocketManager
     @State private var circles: [CircleData] = []
 
     var body: some View {
@@ -56,10 +56,7 @@ struct CirclesView: View {
                                 webSocketManager.send(message: jsonString)
                             }
 
-                            
-                            let newCircle = CircleData(color: Color.randomPastel(), position: value.location)
-                            circles.append(newCircle)
-                            removeCircleDelayed(circleID: newCircle.id)
+                            addCircle(at: value.location)
                         }
                 )
 
@@ -79,6 +76,25 @@ struct CirclesView: View {
                     }
             }
         }
+        // Observe changes in receivedCircleData
+        .onChange(of: webSocketManager.receivedCircleData) { newData in
+            if let data = newData {
+                let screenWidth = UIScreen.main.bounds.width
+                let screenHeight = UIScreen.main.bounds.height
+                let xPosition = data.x * screenWidth
+                let yPosition = data.y * screenHeight
+                
+                print("Adding circle at normalized coordinates (\(data.x), \(data.y)), which is (\(xPosition), \(yPosition)) on screen")
+
+                addCircle(at: CGPoint(x: xPosition, y: yPosition))
+            }
+        }
+    }
+
+    private func addCircle(at position: CGPoint) {
+        let newCircle = CircleData(color: Color.randomPastel(), position: position)
+        circles.append(newCircle)
+        removeCircleDelayed(circleID: newCircle.id)
     }
 
     private func removeCircleDelayed(circleID: UUID) {
